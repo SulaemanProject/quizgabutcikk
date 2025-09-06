@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz MikirKids😁😁 15 Soal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('https://i.pinimg.com/1200x/c6/01/b2/c601b241e1a0b7c30acffd40d326bd89.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    /* overlay untuk membuat teks lebih mudah dibaca */
+    .overlay {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      border-radius: 1rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+    }
+    label:hover {
+      background-color: #fce7f3; /* pink-100 */
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-6">
+  <div class="overlay">
+    <h1 class="text-3xl font-extrabold mb-8 text-center text-pink-600">Quiz MikirKids😁😁</h1>
+    
+    <div id="quiz-container" class="mb-6">
+      <!-- Pertanyaan dan pilihan jawaban muncul di sini -->
+    </div>
+
+    <button id="next-btn" class="w-full bg-pink-500 text-white py-3 rounded-md hover:bg-pink-600 transition disabled:opacity-50" disabled>Selanjutnya</button>
+
+    <div id="result" class="mt-8 text-center text-lg font-semibold text-purple-700"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Berapakah hasil dari 5 + 7?",
+        options: [
+          {text: "10", value: 0},
+          {text: "12", value: 1},
+          {text: "15", value: 0},
+          {text: "9", value: 0}
+        ]
+      },
+      {
+        question: "Wilayah manakah yang menjadi pusat Kerajaan Majapahit pada abad ke-14?",
+        options: [
+          {text: "Jawa Timur", value: 1},
+          {text: "Bali", value: 0},
+          {text: "Sumatra", value: 0},
+          {text: "Kalimantan", value: 0}
+        ]
+      },
+      {
+        question: "Perjanjian Renville (1948) dilakukan antara Indonesia dan Belanda dengan tujuan utama untuk...?",
+        options: [
+          {text: "Mengakhiri permusuhan sementara", value: 1},
+          {text: "Memulai perang baru", value: 0},
+          {text: "Membagi wilayah Indonesia", value: 0},
+          {text: "Membuka jalur perdagangan", value: 0}
+        ]
+      },
+      {
+        question: "Siapa Presiden kedua Republik Indonesia?",
+        options: [
+          {text: "Soekarno", value: 0},
+          {text: "Soeharto", value: 1},
+          {text: "BJ Habibie", value: 0},
+          {text: "Megawati", value: 0}
+        ]
+      },
+      {
+        question: "Bagaimana peran dan pengaruh Perjanjian Tordesillas (1494) dalam pembagian wilayah kolonial antara Spanyol dan Portugal?",
+        options: [
+          {text: "Membagi wilayah kolonial secara garis vertikal", value: 1},
+          {text: "Mengakhiri peperangan antara Spanyol dan Inggris", value: 0},
+          {text: "Membatasi perdagangan antara Spanyol dan Portugal", value: 0},
+          {text: "Mendorong eksplorasi di Asia", value: 0}
+        ]
+      },
+      {
+        question: "Bagaimana peran dan strategi Sultan Mahmud dari Kesultanan Malaka dalam memperluas pengaruh Islam di Asia Tenggara?",
+        options: [
+          {text: "Melalui perdagangan dan diplomasi", value: 1},
+          {text: "Melalui penaklukan militer saja", value: 0},
+          {text: "Melalui pendidikan formal di Eropa", value: 0},
+          {text: "Dengan membangun benteng di daratan Eropa", value: 0}
+        ]
+      },
+      {
+        question: "Proses fotosintesis pada tumbuhan terjadi di bagian mana dan apa fungsi utamanya?",
+        options: [
+          {text: "Kloroplas; mengubah cahaya matahari menjadi energi kimia", value: 1},
+          {text: "Mitokondria; memproduksi energi seluler", value: 0},
+          {text: "Nukleus; menyimpan informasi genetik", value: 0},
+          {text: "Sitoplasma; tempat sintesis protein", value: 0}
+        ]
+      },
+      {
+        question: "Jika sebuah benda bermassa 5 kg bergerak dengan kecepatan 4 m/s, berapakah energi kinetiknya?",
+        options: [
+          {text: "20 Joule", value: 0},
+          {text: "40 Joule", value: 1},
+          {text: "10 Joule", value: 0},
+          {text: "80 Joule", value: 0}
+        ]
+      },
+      {
+        question: "Manakah pernyataan yang benar mengenai perbedaan antara gaya gesek statis dan gaya gesek kinetis?",
+        options: [
+          {text: "Gaya gesek statis biasanya lebih besar daripada gaya gesek kinetis", value: 1},
+          {text: "Gaya gesek kinetis biasanya lebih besar daripada gaya gesek statis", value: 0},
+          {text: "Keduanya selalu sama besar", value: 0},
+          {text: "Gaya gesek tidak bergantung pada jenis permukaan", value: 0}
+        ]
+      },
+      {
+        question: "Manakah yang termasuk contoh pembelajaran aktif?",
+        options: [
+          {text: "Diskusi kelompok", value: 1},
+          {text: "Mendengarkan ceramah tanpa bertanya", value: 0},
+          {text: "Membaca buku sendiri tanpa interaksi", value: 0},
+          {text: "Menghafal materi tanpa diskusi", value: 0}
+        ]
+      },
+      {
+        question: "Jika Andi membeli 3 buku dengan harga masing-masing Rp 25.000, berapa total uang yang harus dia bayar?",
+        options: [
+          {text: "Rp 50.000", value: 0},
+          {text: "Rp 75.000", value: 1},
+          {text: "Rp 100.000", value: 0},
+          {text: "Rp 25.000", value: 0}
+        ]
+      },
+      {
+        question: "Sebuah segitiga memiliki panjang alas 10 cm dan tinggi 6 cm. Berapakah luas segitiga tersebut?",
+        options: [
+          {text: "30 cm²", value: 1},
+          {text: "60 cm²", value: 0},
+          {text: "16 cm²", value: 0},
+          {text: "36 cm²", value: 0}
+        ]
+      },
+      {
+        question: "Jika sebuah mobil menempuh jarak 180 km dalam 3 jam, berapakah kecepatan rata-rata mobil tersebut?",
+        options: [
+          {text: "50 km/jam", value: 0},
+          {text: "60 km/jam", value: 1},
+          {text: "70 km/jam", value: 0},
+          {text: "80 km/jam", value: 0}
+        ]
+      },
+      {
+        question: "Teknologi dalam pembelajaran dapat meningkatkan efektivitas dengan cara:",
+        options: [
+          {text: "Menyediakan media pembelajaran interaktif dan menarik", value: 1},
+          {text: "Membatasi interaksi antara guru dan siswa", value: 0},
+          {text: "Menggantikan guru tanpa pendampingan", value: 0},
+          {text: "Membuat siswa lebih sering tidur saat pelajaran", value: 0}
+        ]
+      },
+      {
+        question: "Bonus! Apa makanan favorit kamu? Kalau tidak ada di pilihan, chat aja langsung ke 085173190998 😁",
+        options: [
+          {text: "Jengkol", value: 1},
+          {text: "Pete", value: 1},
+          {text: "Daun Singkong", value: 1},
+          {text: "Durian", value: 1}
+        ]
+      }
+    ];
+
+    let currentQuiz = 0;
+    let score = 0;
+
+    const quizContainer = document.getElementById("quiz-container");
+    const nextBtn = document.getElementById("next-btn");
+    const resultDiv = document.getElementById("result");
+
+    function loadQuiz() {
+      nextBtn.disabled = true;
+      resultDiv.innerHTML = "";
+      const currentData = quizData[currentQuiz];
+      let optionsHTML = "";
+      currentData.options.forEach((opt, idx) => {
+        optionsHTML += `
+          <label class="block mb-3 cursor-pointer p-3 rounded border border-pink-300 hover:bg-pink-50 transition">
+            <input type="radio" name="answer" value="${opt.value}" class="mr-3" />
+            ${String.fromCharCode(65 + idx)}. ${opt.text}
+          </label>
+        `;
+      });
+
+      quizContainer.innerHTML = `
+        <h2 class="text-xl font-semibold mb-4">${currentData.question}</h2>
+        <form id="quiz-form">${optionsHTML}</form>
+      `;
+
+      const inputs = document.querySelectorAll('input[name="answer"]');
+      inputs.forEach(input => {
+        input.addEventListener('change', () => {
+          nextBtn.disabled = false;
+        });
+      });
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) return;
+
+      score += Number(selected.value);
+      currentQuiz++;
+
+      if (currentQuiz < quizData.length) {
+        loadQuiz();
+        nextBtn.disabled = true;
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      quizContainer.innerHTML = "";
+      nextBtn.style.display = "none";
+
+      resultDiv.innerHTML = `
+        Kamu sudah menyelesaikan quiz! <br/>
+        Total skor kamu: <strong>${score}</strong><br/>
+        (Nilai bisa kamu interpretasikan sendiri, misal semakin tinggi semakin cocok!)
+      `;
+    }
+
+    loadQuiz();
+  </script>
+</body>
+</html>
